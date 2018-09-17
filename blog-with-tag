@@ -1,0 +1,177 @@
+<div class="blog-latest">
+  <div class="container">
+    <div class="row">
+        {% if section.settings.blog_title != blank %}
+       <div class="block-header col-sm-12 text-left">
+      <h6 class="block-tittle">{{ section.settings.blog_title }}</h6>
+  </div>
+  {% endif %}
+</div>
+    <div class="row">
+        
+           {% assign top1 = section.settings.htop1 %}
+           {% assign top2 = section.settings.htop2 %}
+           {% assign top3 = section.settings.htop3 %}      
+          {%capture blog_category %}
+          {% for link in linklists.blog-menu.links %}         
+          {{ link.url | split: '/blogs/' }}
+          {% endfor %}
+          {%endcapture%}
+          {% assign blog_handles = blog_category %}
+          {% assign blog_list = blog_handles | split: ' ' %}
+     	 <div class="blog-first col-md-4 col-xs-6">
+          {% for blog_handle in blog_list %}
+          {% for article in blogs[blog_handle].articles %}    
+          {% if article.tags contains top1 %}
+          <div id="all-blog-1" class="item {{article.tags | join: ' '}}">
+            <div class="img full-block" style="background-image:url({{  article.image.src | img_url: '800x800' }})">
+            <div class="sade">
+              <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              
+              <div class="auther-date">
+               {% if section.settings.blog_show_date %}
+              <span class="article__date">
+                {{ article.published_at | time_tag: format: 'month_day_year' }}
+              </span>
+              {% endif %}              
+              <div class="article__tags">
+                  {% for tag in article.tags %}
+                {%if tag contains 'tag_'%}   
+                {% assign tags = tag | split: '_' %}
+                {{ tags[1] }}
+                {%endif%}
+                  {% endfor %}
+              </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </div>
+      
+            <div class="blog-second col-md-4 col-xs-6">
+              {% for blog_handle in blog_list %}
+          {% for article in blogs[blog_handle].articles %}    
+          {% if article.tags contains top2 %}
+          <div id="all-blog-2" class="item  {{article.tags | join: ' '}}">
+            <div class="img full-block" style="background-image:url({{  article.image.src | img_url: '800x800' }})">
+            <div class="sade">
+              <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              
+              <div class="auther-date">
+               {% if section.settings.blog_show_date %}
+              <span class="article__date">
+                {{ article.published_at | time_tag: format: 'month_day_year' }}
+              </span>
+              {% endif %}              
+              <div class="article__tags">
+                  {% for tag in article.tags %}
+                {%if tag contains 'tag_'%}   
+                {% assign tags = tag | split: '_' %}
+                {{ tags[1] }}
+                {%endif%}
+                  {% endfor %}
+              </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+               {% endfor %}
+      </div>
+      
+                  <div class="blog-thired col-md-4 col-xs-6">
+                    {% for blog_handle in blog_list %}
+          {% for article in blogs[blog_handle].articles %}    
+          {% if article.tags contains top3 %}
+          <div id="all-blog-3" class="item {{article.tags | join: ' '}}">
+            <div class="img full-block" style="background-image:url({{  article.image.src | img_url: '800x800' }})">
+            <div class="sade">
+              <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+              
+              <div class="auther-date">
+               {% if section.settings.blog_show_date %}
+              <span class="article__date">
+                {{ article.published_at | time_tag: format: 'month_day_year' }}
+              </span>
+              {% endif %}              
+              <div class="article__tags">
+                  {% for tag in article.tags %}
+                {%if tag contains 'tag_'%}   
+                {% assign tags = tag | split: '_' %}
+                {{ tags[1] }}
+                {%endif%}
+                  {% endfor %}
+              </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+                     {% endfor %}
+      </div>
+         
+        </div>
+    </div>
+  </div>
+
+
+{% schema %}
+{
+
+"name": "Home Blog",
+"class": "case3 more-like", 
+"settings": [
+
+{
+"type": "text",
+"id": "blog_title",
+"label": "Heading",
+"default": "Blog Posts"
+},
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": {
+          "en": "Show date",
+          "de": "Datum anzeigen",
+          "fr": "Afficher la date",
+          "it": "Mostra data",
+          "ja": "日付を表示する",
+          "es": "Mostrar fecha",
+          "pt-BR": "Exibir data"
+        },
+        "default": true
+      },
+{
+"type": "text",
+"id": "htop1",
+"label": "First tag",
+"default": "Tag"
+},
+{
+"type": "text",
+"id": "htop2",
+"label": "Second tag",
+"default": "Tag"
+},
+{
+"type": "text",
+"id": "htop3",
+"label": "Third tag",
+"default": "Tag"
+}
+
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
